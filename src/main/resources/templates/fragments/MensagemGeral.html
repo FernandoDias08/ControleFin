@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<div class="ls-alert-success ls-dismissable"
+	th:if="${!#strings.isEmpty(mensagem)}" th:fragment="alert">
+	<span data-ls-module="dismiss" class="ls-dismiss">&times;</span> <strong>Tudo certo!</strong>
+	<span th:text="${mensagem}"></span> <br />
+</div>
+
+</html>

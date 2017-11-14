@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/Principal">
+<head>
+<title>Cadastro de lancamentos</title>
+</head>
+
+<section layout:fragment="conteudo">
+    
+    <h1 class="ls-title-intro ls-ico-pencil2">Novo Lançamento - Conta</h1>
+    
+    <form method="POST" class="ls-form row"
+	 th:action="@{/lancamentos}" th:object="${lancamento}">
+	
+	<div layout:include="fragments/MensagemGeral"></div>
+    <div layout:include="fragments/MensagemErro"></div>
+    	
+    <input type="hidden" th:field="*{id}"/>
+	 
+   <fieldset>
+    
+	    <label class="ls-label col-md-4">
+	      <b class="ls-label-text">Tipo</b>
+	      <div class="ls-custom-select">
+	        <select class="ls-custom" name="tipoLancamento" th:field="*{tipoLancamento}">
+	          <option th:each="tipoLancamento : ${todosTipos}" th:value="${tipoLancamento}" th:text="${tipoLancamento.descricao}"></option>
+	        </select>
+	      </div>
+	    </label>
+    
+	    <label class="ls-label col-md-4">
+	      <b class="ls-label-text">Valor</b>
+	      <input type="text" class="" placeholder="Valor" th:field="*{valor}"/>
+	    </label>
+    
+	    <label class="ls-label col-md-6">
+	      <b class="ls-label-text">Descrição</b>
+	      <input type="text" placeholder="Descrição" th:field="*{descricao}"/>
+	    </label>
+	    
+	    <label class="ls-label col-md-6">
+	      <b class="ls-label-text">Data de Vencimento</b>
+	      <input type="date" placeholder="Data Vencimento" th:field="*{dataVencimento}"/>
+	    </label>
+    
+
+  </fieldset>
+
+	<hr/>
+  	
+  	<button class="ls-btn">Salvar</button>
+
+</form>
+   
+</section>
+
+</html>

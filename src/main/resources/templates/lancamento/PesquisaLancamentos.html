@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/Principal">
+<head>
+<title>Pesquisa de Lançamentos</title>
+</head>
+
+<section layout:fragment="conteudo">
+
+	<h1 class="ls-title-intro ls-ico-pencil2">Pesquisa de Lançamentos</h1>
+
+	<div class="ls-box-filter">
+
+		<form method="GET" th:action="@{/lancamentos}" th:object="${filtro}"
+			class="ls-form ls-form-inline">
+
+			<label class="ls-label col-md-5" role="search"> <b
+				class="ls-label-text ls-hidden-accessible">Descrição</b> <input
+				type="text" aria-label="Faça sua busca pela descrição"
+				placeholder="Descrição" class="ls-field-sm"
+				th:field="*{descricao}" />
+			</label>
+			
+			 <label class="ls-label col-md-2" role="search"> <b
+				class="ls-label-text ls-hidden-accessible">Valor</b> <input
+				type="text" aria-label="Faça sua busca pelo Valor"
+				placeholder="Valor" class="ls-field-sm" th:field="*{valor}" />
+			</label>
+
+
+
+			<div class="ls-actions-btn">
+				<input type="submit" value="Buscar" class="ls-btn ls-btn-sm"
+					title="Buscar" />
+			</div>
+
+		</form>
+	</div>
+
+	<table class="ls-table ls-sm-space">
+		<thead>
+			<tr>
+				<th>Descrição</th>
+				<th>Valor</th>
+				<th>Vencimento</th>
+
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="lancamento : ${pagina.conteudo}">
+				
+				<td th:text="${lancamento.descricao}"></td>
+				<td th:text="${lancamento.valor}"></td>
+				<td th:text="${lancamento.dataVencimento}"></td>
+
+				<td class="ls-txt-right ls-regroup">
+					<div data-ls-module="dropdown" class="ls-dropdown ls-pos-right">
+						<a href="#" class="ls-btn ls-btn-sm"></a>
+						<ul class="ls-dropdown-nav">
+							<li><a th:href="@{/lancamentos/{id}(id=${lancamento.id})}">Editar</a></li>
+							<li><a href="#" class="ls-color-danger">Excluir</a></li>
+						</ul>
+					</div>
+				</td>
+			</tr>
+
+			<tr th:if="${pagina.vazia}">
+				<td colspan="4">Nenhum lancamento encontrado!</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<div class="ls-pagination-filter">
+		<a th:href="@{/lancamentos/novo}" class="ls-btn-primary">Cadastrar
+			novo</a>
+		<div th:replace="/fragments/Paginacao :: pagination (${pagina})"></div>
+
+	</div>
+
+</section>
+
+</html>
